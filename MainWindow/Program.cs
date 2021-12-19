@@ -69,5 +69,5 @@ var shaKeyBytes = System.Text.Encoding.UTF8.GetBytes(key);
 var shaAlgorithm = new System.Security.Cryptography.HMACSHA256(shaKeyBytes);
 var signatureHashBytes = shaAlgorithm.ComputeHash(signatureBytes);
 var signatureHashHex = string.Concat(Array.ConvertAll(signatureHashBytes, b => b.ToString("X2"))).ToLower();
-Console.WriteLine(signatureHashHex);
+Console.WriteLine(signatureHashHex); 
 
