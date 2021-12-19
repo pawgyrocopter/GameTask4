@@ -1,46 +1,46 @@
 ﻿namespace MainWindow;
 
-static class HelpTablePrinter
+public class HelpTablePrinter
 {
-    static int tableWidth = 73;
-
-    static public void PrintTable(int tableWidth, string[] moves)
+    public void CreateAndPrintTable(List<string> moves)
     {
-        PrintLine();
-        PrintRow(moves);
-        PrintLine();
-        PrintRow("qwe", "", "", "");
-        PrintLine();
-    }
-    static void PrintLine()
-    {
-        Console.WriteLine(new string('-', tableWidth));
-    }
-
-    static void PrintRow(params string[] columns)
-    {
-        int width = (tableWidth - columns.Length) / columns.Length;
-        string row = "|";
-
-        foreach (string column in columns)
+        string[,]? helpTable = new string[moves.Count()+1,moves.Count()+1];
+        helpTable[0, 0] = "M";
+        for (int i = 1; i <= moves.Count(); i++)
         {
-            row += AlignCentre(column, width) + "|";
+            helpTable[0, i] = moves[i-1];
+            helpTable[i, 0] = moves[i-1];
+            helpTable[i, i] = "D";
+    
         }
-
-        Console.WriteLine(row);
+        for (int i = 1; i <= moves.Count(); i++)
+        {
+            for (int j = (i + 1) % 7; j <= i + (moves.Count() - 1) / 2; j++)
+            {
+                if (j > moves.Count)
+                {
+                    helpTable[i, j - moves.Count()] = "W";
+                    helpTable[j - moves.Count(), i] = "L";
+                }
+                else
+                {
+                    helpTable[i, j] = "W";
+                    helpTable[j, i] = "L";
+                }
+            }
+        }
+        PrintTable(helpTable, moves.Count());
     }
 
-    static string AlignCentre(string text, int width)
+    private void PrintTable(string[,] helpTable, int n)
     {
-        text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
-
-        if (string.IsNullOrEmpty(text))
+        for (int i = 0; i <= n; i++)
         {
-            return new string(' ', width);
-        }
-        else
-        {
-            return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
+            for (int j = 0; j <= n; j++)
+            {
+                Console.Write(helpTable[i,j] + ' ');
+            }
+            Console.WriteLine("");
         }
     }
 }
