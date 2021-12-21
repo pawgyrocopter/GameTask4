@@ -1,8 +1,8 @@
 ﻿namespace MainWindow;
 
-public class HelpTablePrinter
+public class HelpTable
 {
-    public void CreateAndPrintTable(List<string> moves)
+    public string[,] CreateTable(List<string> moves)
     {
         string[,]? helpTable = new string[moves.Count()+1,moves.Count()+1];
         helpTable[0, 0] = "M";
@@ -29,10 +29,10 @@ public class HelpTablePrinter
                 }
             }
         }
-        PrintTable(helpTable, moves.Count());
-    }
 
-    private void PrintTable(string[,] helpTable, int n)
+        return helpTable;
+    }
+    public void PrintTable(string[,] helpTable, int n)
     {
         for (int i = 0; i <= n; i++)
         {

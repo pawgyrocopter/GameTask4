@@ -4,6 +4,7 @@ public class Menu
 {
     public void PrintMenu(List<string> moves)
     {
+        Console.WriteLine("Available moves:");
         for (int i = 0; i < moves.Count(); i++)
         {
             Console.WriteLine($"{i+1} - {moves[i]}");
